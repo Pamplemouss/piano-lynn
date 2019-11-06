@@ -5,7 +5,34 @@
   --blackHeight: calc(var(--whiteWidth) * 3.5);
 }
 
+[data-theme="light"] {
+  --primary-color: #f9f9f9;
+  --primary-color-contrast: #e6e6e6;
+  --text-color: #555555;
+  --disabled-color: #aaaaaa;
+  --disabled-color-darker: #777777;
+  --piano-white: #ffffff;
+  --piano-white-thin-border: #aaaaaa;
+  --piano-white-thick-border: #cccccc;
+  --piano-black: #333333;
+  --piano-black-border: #0d0d0d;
+}
+
+[data-theme="dark"] {
+  --primary-color: #121212;
+  --primary-color-contrast: #323232;
+  --text-color: #dddddd;
+  --disabled-color: #444444;
+  --disabled-color-darker: #2f2f2f;
+  --piano-white: #ededed;
+  --piano-white-thin-border: #7f7f7f;
+  --piano-white-thick-border: #9f9f9f;
+  --piano-black: #202020;
+  --piano-black-border: black;
+}
+
 body {
+  background: var(--primary-color);
   margin: 0;
   padding: 0;
   display: -webkit-flex;
@@ -18,6 +45,11 @@ body {
   width: 100%;
   position: absolute;
   font-family: 'McLaren', cursive;
+  transition: background 0.3s;
+}
+
+body > #content {
+  transform: translateY(50px);
 }
 
 #piano {
@@ -33,29 +65,31 @@ body {
   display: inline-block;
   width: var(--whiteWidth);
   height: var(--whiteHeight);
-  background: #ffffff;
-  border: 1px solid #aaaaaa;
-  border-bottom: calc(var(--whiteWidth) / 3) solid #cccccc;
+  background: var(--piano-white);
+  border: 1px solid var(--piano-white-thin-border);
+  border-bottom: calc(var(--whiteWidth) / 3) solid var(--piano-white-thick-border);
   cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 .white:active {
-  border-bottom: calc(var(--whiteWidth) / 3 * 0.5) solid #cccccc;
+  border-bottom: calc(var(--whiteWidth) / 3 * 0.5) solid var(--piano-white-thick-border);
 }
 
 .black {
   width: var(--blackWidth);
   height: var(--blackHeight);
-  background: black;
+  background: var(--piano-black);
   position: absolute;
   top: 0;
   left: calc(var(--whiteWidth) * var(--place) - (var(--blackWidth) / 2) + (2px * var(--place)));
-  border-bottom: calc(var(--blackWidth) / 3) solid #333333;
+  border-bottom: calc(var(--blackWidth) / 3) solid var(--piano-black-border);
   cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 .black:active {
-  border-bottom: calc(var(--blackWidth) / 3 * 0.5) solid #333333;
+  border-bottom: calc(var(--blackWidth) / 3 * 0.5) solid var(--piano-black-border);
   transform: translateY(calc(var(--blackWidth) / 3 * 0.5));
 }
 
@@ -97,6 +131,7 @@ body {
  -khtml-user-select: none; /* Konqueror HTML */
  -moz-user-select: none; /* Firefox */
  -ms-user-select: none; /* Internet Explorer/Edge */
+ transition: border-color 0.3s, background 0.3s;
 }
 
 .answerButton:active {
@@ -105,13 +140,13 @@ body {
 }
 
 .answerButton.disabled {
-  background: #bbbbbb;
-  border-bottom: 4px solid #777777;
+  background: var(--disabled-color);
+  border-bottom: 4px solid var(--disabled-color-darker);
   cursor: not-allowed;
 }
 
 .answerButton.disabled:active {
-  border-bottom: 4px solid #777777;
+  border-bottom: 4px solid var(--disabled-color-darker);
   transform: translateY(0px);
 }
 
@@ -132,6 +167,7 @@ body {
   text-align: center;
   margin-top: 30px;
   font-size: 3em;
+  color: var(--text-color);
 }
 
 #startTestButton {
@@ -139,30 +175,31 @@ body {
   top: 0;
   left: 0;
   height: calc(100% - 4px);
-  background: blue;
+  background: #3f51b5;
   width: 85px;
   border-radius: 5px;
   cursor: pointer;
-  border-bottom: 4px solid #000088;
+  border-bottom: 4px solid #283593;
   line-height: 100%;
   text-align: center;
   color: #ffffff;
   font-size: 1.5em;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 #startTestButton:active {
-  border-bottom: 1px solid #000088;
+  border-bottom: 1px solid #283593;
   transform: translateY(3px);
 }
 
 #startTestButton.disabled {
-  background: #bbbbbb;
-  border-bottom: 4px solid #777777;
+  background: var(--disabled-color);
+  border-bottom: 4px solid var(--disabled-color-darker);
   cursor: not-allowed;
 }
 
 #startTestButton.disabled:active {
-  border-bottom: 4px solid #777777;
+  border-bottom: 4px solid var(--disabled-color-darker);
   transform: translateY(0px);
 }
 
@@ -178,11 +215,11 @@ body {
   top: 40%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
-  background: #444444;
+  background: #252525;
   border-radius: 10px;
   width: 500px;
   height: 180px;
-  color: #ffffff;
+  color: #efefef;
   font-size: 1.5em;
   box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -7px rgba(0,0,0,0.2);
 }
@@ -250,3 +287,93 @@ body {
 .hidden {
   display: none;
 }
+
+#lightButton {
+  position: absolute;
+  top: 10px;
+  right: 9px;
+  font-size: 2em;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 0 8px;
+}
+
+.form-switch {
+  position: absolute;
+  bottom: -40px;
+  font-family: 'Montserrat', sans-serif;
+  left: -6px;
+}
+
+.form-switch i {
+  margin-right: 0 !important;
+}
+
+.notation {
+  display: inline-block;
+  transform: translateY(-5px);
+  font-size: 0.8em;
+  margin: 0 4px;
+  color: var(--disabled-color);
+}
+
+.notation.selected {
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+/*CODE FROM THE INTERNET https://www.cssscript.com/realistic-ios-switch-pure-css/ */
+.form-switch {
+  display: inline-block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.form-switch i {
+  position: relative;
+  display: inline-block;
+  margin-right: .5rem;
+  width: 46px;
+  height: 26px;
+  background-color: var(--primary-color-contrast);
+  border-radius: 23px;
+  vertical-align: text-bottom;
+  transition: all 0.3s linear;
+}
+
+.form-switch i::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 42px;
+  height: 22px;
+  background-color: var(--primary-color-contrast);
+  border-radius: 11px;
+  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+  transition: all 0.25s linear;
+}
+
+.form-switch i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background-color: var(--primary-color);
+  border-radius: 11px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+  transform: translate3d(2px, 2px, 0);
+  transition: all 0.2s ease-in-out;
+}
+
+.form-switch:active i::after {
+  width: 28px;
+  transform: translate3d(2px, 2px, 0);
+}
+
+.form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
+.form-switch input { display: none; }
+.form-switch input:checked + i { background-color: #3f51b5; }
+.form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
+.form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }
+/*END CODE FROM THE INTERNET*/

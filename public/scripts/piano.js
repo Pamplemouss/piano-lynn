@@ -1,18 +1,45 @@
 var octaveNumbers = 5;
-var questionsMax = 1;
+var questionsMax = 20;
 var correctAnswers = 0;
 var wrongAnswers = 0;
 var startTime;
 var endTime;
+var notationDo = ["Do", "Do♯/Re♭", "Re", "Re♯/Mi♭", "Mi", "Fa", "Fa♯/Sol♭", "Sol", "Sol♯/La♭", "La", "La♯/Si♭", "Si"];
+var notationC = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"];
 var failedThisQuestion = false;
 
-initialize();
 
+$(document).ready(function() {
+    initialize();
+});
 
 
 function initialize() {
+  $("body").attr("data-theme", Cookies.get("theme"));
+
+  if (Cookies.get("notation")) {
+    if (Cookies.get("notation") == "Do") {
+      $(".form-switch input").prop("checked", true);
+      $(".form-switch > div").eq(0).removeClass("selected");
+      $(".form-switch > div").eq(1).addClass("selected");
+    }
+    else if (Cookies.get("notation") == "C") {
+      $(".form-switch input").prop("checked", false);
+      $(".form-switch > div").eq(1).removeClass("selected");
+      $(".form-switch > div").eq(0).addClass("selected");
+    }
+  }
+
+  $("#startTestButton").on("click",function() {
+    startTest();
+  })
+
+  $(".form-switch input").change(function() {
+    changeNotation(this.checked);
+  });
+
   createPiano();
-  randomizeAnswersOrder()
+  randomizeAnswersOrder();
   updateScore();
 }
 
@@ -26,6 +53,7 @@ function startTest() {
 
   $("#answersControl .answerButton").removeClass("disabled");
   $("#startTestButton").addClass("disabled");
+  $("#startTestButton").unbind();
 
   $("#answersControl .answerButton").on("click", function() {
     checkAnswer(this);
@@ -44,6 +72,9 @@ function finishTest() {
   $(".answerButton").removeClass("wrong");
   $(".answerButton").addClass("disabled");
   $("#startTestButton").removeClass("disabled");
+  $("#startTestButton").on("click",function() {
+    startTest();
+  })
 
   $("#answersControl .answerButton").unbind();
 
@@ -203,4 +234,54 @@ function randomizeAnswersOrder() {
 function closePopup() {
   $("#blackVeil").addClass("hidden");
   $("#popup").addClass("hidden");
+}
+
+
+
+function savePopup() {
+  $.ajax({
+    type: "POST",
+    url: '/saveResults',
+    data: {
+      averageTime: $("#popup #averageTime").html()
+    },
+    success: function() {
+      closePopup();
+    }
+  });
+}
+
+
+
+function changeNotation(checked) {
+  var notationToUse;
+
+  if (checked) {
+    Cookies.set('notation', "Do", { expires: 30 });
+    notationToUse = notationDo;
+  }
+  else {
+    Cookies.set('notation', "C", { expires: 30 });
+    notationToUse = notationC;
+  }
+
+  $(".form-switch > div").toggleClass("selected");
+  $(".answerButton").each(function(index) {
+    let noteValue = $(this).attr("noteValue");
+    $(this).html(notationToUse[noteValue-1])
+  });
+}
+
+
+
+function toggleLight() {
+  var theme;
+
+  if ($("body").attr("data-theme") == "light")
+    theme = "dark";
+  else if ($("body").attr("data-theme") == "dark")
+    theme = "light";
+
+  $("body").attr("data-theme", theme);
+  Cookies.set('theme', theme, { expires: 30 })
 }

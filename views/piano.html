@@ -4,17 +4,31 @@
     <meta charset="utf-8">
     <title>PianoLynn</title>
     <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/piano.css">
     <link rel="icon" href="img/icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="scripts/piano.js"></script>
   </head>
-  <body>
+  <body data-theme="light">
 
-    <div>
+    <div id="lightButton" onclick="toggleLight()">
+      <i class="far fa-lightbulb"></i>
+    </div>
+
+    <div id="content">
       <div id="piano"></div>
 
       <div id="answersControl">
-        <div id="startTestButton" onclick="startTest()"><span><i class="fas fa-play"></i></span></div>
+        <div id="startTestButton"><span><i class="fas fa-play"></i></span></div>
+        <label class="form-switch">
+          <div class="notation">C</div>
+          <input type="checkbox" checked>
+          <i></i>
+          <div class="notation selected">Do</div>
+        </label>
         <div class="row"></div>
         <div class="row"></div>
       </div>
@@ -51,7 +65,5 @@
       <div class="answerButton disabled" noteValue="12">Si</div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="scripts/piano.js"></script>
   </body>
 </html>
