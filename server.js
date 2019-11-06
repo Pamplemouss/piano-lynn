@@ -1,7 +1,7 @@
 // server.js
 var express = require('express');
 var app = express();
-var port = 42777;
+var port = 8000;
 var logger = require('morgan');
 
 
