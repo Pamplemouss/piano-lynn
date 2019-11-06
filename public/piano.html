@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PianoLynn</title>
+    <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/piano.css">
+    <link rel="icon" href="img/icon.png">
+  </head>
+  <body>
+
+    <div>
+      <div id="piano"></div>
+
+      <div id="answersControl">
+        <div id="startTestButton" onclick="startTest()"><span><i class="fas fa-play"></i></span></div>
+        <div class="row"></div>
+        <div class="row"></div>
+      </div>
+      <div id="score">
+        <span id="totalCorrect"></span>/<span id="totalQuestions"></span>
+      </div>
+    </div>
+
+    <div id="blackVeil" class="hidden"></div>
+    <div id="popup" class="hidden">
+      <div id="content">
+        <div>Temps total : <span id="totalTime">25</span>s</div>
+        <div>Temps moyen : <span id="averageTime">3.15</span>s</div>
+      </div>
+      <div id="saveControl">
+        <span>Sauvegarder :</span>
+        <div id="close" onclick="closePopup()"><i class="fas fa-times-circle"></i></div>
+        <div id="save" onclick="savePopup()"><i class="fas fa-save"></i></div>
+      </div>
+    </div>
+
+    <div id="toRandomize">
+      <div class="answerButton disabled" noteValue="1">Do</div>
+      <div class="answerButton disabled" noteValue="2">Do♯/Re♭</div>
+      <div class="answerButton disabled" noteValue="3">Re</div>
+      <div class="answerButton disabled" noteValue="4">Re♯ / Mi♭</div>
+      <div class="answerButton disabled" noteValue="5">Mi</div>
+      <div class="answerButton disabled" noteValue="6">Fa</div>
+      <div class="answerButton disabled" noteValue="7">Fa♯ / Sol♭</div>
+      <div class="answerButton disabled" noteValue="8">Sol</div>
+      <div class="answerButton disabled" noteValue="9">Sol♯ / La♭</div>
+      <div class="answerButton disabled" noteValue="10">La</div>
+      <div class="answerButton disabled" noteValue="11">La♯ / Si♭</div>
+      <div class="answerButton disabled" noteValue="12">Si</div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/piano.js"></script>
+  </body>
+</html>
