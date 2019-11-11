@@ -4,9 +4,12 @@ module.exports.pianoLynn = function(req, res) {
 
 module.exports.saveResults = function(req, res) {
   const fs = require('fs');
+  var newTime = req.body.averageTime;
+  var data = JSON.parse(fs.readFileSync('data/results.json', 'utf8'));
 
-  var data = req.body.averageTime;
-  fs.appendFileSync('data/results', data + "\n");
+  data.time.push(newTime);
+
+  fs.writeFileSync('data/results.json', JSON.stringify(data));
 
   res.sendStatus(200);
 }

@@ -1,0 +1,29 @@
+body {
+  color: #efefef;
+  background: #121212;
+  font-family: 'McLaren', cursive;
+}
+
+#Bowser {
+  margin-top: 50px;
+  width: 200px;
+  height: 50px;
+  color: #3e2723;
+  background: #ffeb3b;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-bottom: 4px solid #f9a825;
+}
+
+#Bowser:active {
+  border-bottom: 1px solid #f9a825;
+  transform: translateY(3px);
+}
+
+#data {
+  background: #222222;
+  padding: 20px;
+  width: 300px;
+}

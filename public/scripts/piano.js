@@ -1,11 +1,11 @@
 var octaveNumbers = 5;
-var questionsMax = 20;
+var questionsMax;
 var correctAnswers = 0;
 var wrongAnswers = 0;
 var startTime;
 var endTime;
-var notationDo = ["Do", "Do♯/Re♭", "Re", "Re♯/Mi♭", "Mi", "Fa", "Fa♯/Sol♭", "Sol", "Sol♯/La♭", "La", "La♯/Si♭", "Si"];
-var notationC = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"];
+var notationDo = ["Do", "Do♯ / Re♭", "Re", "Re♯ / Mi♭", "Mi", "Fa", "Fa♯ / Sol♭", "Sol", "Sol♯ / La♭", "La", "La♯ / Si♭", "Si"];
+var notationC = ["C", "C♯ / D♭", "D", "D♯ / E♭", "E", "F", "F♯ / G♭", "G", "G♯ / A♭", "A", "A♯ / B♭", "B"];
 var failedThisQuestion = false;
 
 
@@ -20,11 +20,13 @@ function initialize() {
   if (Cookies.get("notation")) {
     if (Cookies.get("notation") == "Do") {
       $(".form-switch input").prop("checked", true);
+      changeNotation($(".form-switch input").prop("checked"));
       $(".form-switch > div").eq(0).removeClass("selected");
       $(".form-switch > div").eq(1).addClass("selected");
     }
     else if (Cookies.get("notation") == "C") {
       $(".form-switch input").prop("checked", false);
+      changeNotation($(".form-switch input").prop("checked"));
       $(".form-switch > div").eq(1).removeClass("selected");
       $(".form-switch > div").eq(0).addClass("selected");
     }
@@ -37,6 +39,12 @@ function initialize() {
   $(".form-switch input").change(function() {
     changeNotation(this.checked);
   });
+
+  $(".nbButton").on("click", function() {
+    changeNbQuestions(this);
+  });
+
+  questionsMax = $(".nbButton.activated").attr("nbQuestions");
 
   createPiano();
   randomizeAnswersOrder();
@@ -54,6 +62,13 @@ function startTest() {
   $("#answersControl .answerButton").removeClass("disabled");
   $("#startTestButton").addClass("disabled");
   $("#startTestButton").unbind();
+
+  $("#testControl").removeClass("focusPanel");
+  $("#answersControl").addClass("focusPanel");
+
+  $("#personalizedNb input").prop("disabled", true);
+  $(".nbButton").addClass("disabled");
+  $(".nbButton").unbind();
 
   $("#answersControl .answerButton").on("click", function() {
     checkAnswer(this);
@@ -75,6 +90,15 @@ function finishTest() {
   $("#startTestButton").on("click",function() {
     startTest();
   })
+
+  $("#testControl").addClass("focusPanel");
+  $("#answersControl").removeClass("focusPanel");
+
+  $(".nbButton").removeClass("disabled");
+  $("#personalizedNb input").prop("disabled", false);
+  $(".nbButton").on("click", function() {
+    changeNbQuestions(this);
+  });
 
   $("#answersControl .answerButton").unbind();
 
@@ -284,4 +308,16 @@ function toggleLight() {
 
   $("body").attr("data-theme", theme);
   Cookies.set('theme', theme, { expires: 30 })
+}
+
+
+
+function changeNbQuestions(origin) {
+  if ($(origin).attr("id") == "personalizedNb") {
+    $(origin).attr("nbQuestions", $(origin).find("input").val())
+  }
+
+  $(".nbButton").removeClass("activated");
+  $(origin).addClass("activated");
+  questionsMax = $(origin).attr("nbQuestions");
 }
