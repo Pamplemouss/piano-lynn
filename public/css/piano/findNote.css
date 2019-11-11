@@ -114,6 +114,7 @@ body > #content {
 }
 
 #answersControl {
+  height: 170px;
   display: inline-block;
   position: relative;
   margin-top: 50px;
@@ -144,7 +145,6 @@ body > #content {
  -khtml-user-select: none; /* Konqueror HTML */
  -moz-user-select: none; /* Firefox */
  -ms-user-select: none; /* Internet Explorer/Edge */
- transition: border-color 0.3s, background 0.3s;
 }
 
 .answerButton:active {

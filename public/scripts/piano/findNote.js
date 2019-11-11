@@ -267,6 +267,7 @@ function savePopup() {
     type: "POST",
     url: '/saveResults',
     data: {
+      exercise: 1,
       averageTime: $("#popup #averageTime").html()
     },
     success: function() {

@@ -12,8 +12,10 @@
   </head>
   <body>
     <div id="data">
-      <% for (var i = 0 ; i < data.time.length ; i++) { %>
-        <div class="time"><%= data.time[i] %></div>
+      <% for (var i = 0 ; i < data.exercises.length ; i++) { %>
+        <% for (var j = 0 ; j < data.exercises[i].length ; j++) { %>
+          <div class="time"><%= data.exercises[i][j].averageTime %></div>
+        <% } %>
       <% } %>
     </div>
     <div id="Bowser" onclick="deleteData()">Supprimer données</div>

@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.set('view engine', 'ejs'); // set up ejs for templating
 
+require('./config/init.js')(app);
 require('./config/routing.js')(app);
 
 app.listen(port);

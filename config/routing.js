@@ -1,16 +1,20 @@
 // config/routing.js
-var pianoLynnController = require('../controllers/pianoLynnController');
+var pianoController = require('../controllers/pianoController');
 var adminController = require('../controllers/adminController');
 
 module.exports = function(app) {
 
 	// Piano Lynn
-	app.get('/piano', function(req, res) {
-		pianoLynnController.pianoLynn(req, res);
+	app.get('/exercice1', function(req, res) {
+		pianoController.exercice1(req, res);
 	});
 
 	app.post('/saveResults', function(req, res) {
-		pianoLynnController.saveResults(req, res);
+		pianoController.saveResults(req, res);
+	});
+
+	app.get('/exercice2', function(req, res) {
+		pianoController.exercice2(req, res);
 	});
 
 
