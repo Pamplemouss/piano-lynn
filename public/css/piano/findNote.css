@@ -342,7 +342,7 @@ body > #content {
 #testControl {
   position: absolute;
   padding: 15px;
-  top: 265px;
+  top: 305px;
   left: 0;
   height: 170px;
   background: var(--primary-color-nuance-down);

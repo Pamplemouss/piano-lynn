@@ -1,7 +1,7 @@
 // server.js
 var express = require('express');
 var app = express();
-var logger = require('morgan');
+//var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 let port = process.env.PORT;
@@ -11,7 +11,7 @@ if (port == null || port == "") {
 
 
 app.use(express.static('public')); // setting the public folder public
-app.use(logger('dev')); // log every request to the console
+//app.use(logger('dev')); // log every request to the console
 
 // plugin for formating data in POST request
 app.use(bodyParser.urlencoded({
